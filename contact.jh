@@ -1,0 +1,143 @@
+/**
+ * Blog entity.
+ * @author Sanda
+ * C'est l'ensemble de Blog dont dispose le contribuable
+ *  relationship
+ *  	- ManyToOne avec Contact
+ */
+entity Blog {
+	nomBlog String
+	priorite DegrePriorite
+}
+/**
+ * Blog entity.
+ * @author Sanda
+ * C'est l'ensemble des Boites Postales dont dispose le contribuable
+ *  relationship
+ *  	- ManyToOne avec Contact
+ */
+entity BoitePostale {
+	nomBlog String
+	priorite DegrePriorite
+}
+/**
+ * Email entity.
+ * @author Sanda
+ * C'est l'ensemble des Emails dont dispose le contribuable
+ *  relationship
+ *  	- ManyToOne avec Contact
+ */
+entity Email {
+	email String
+	priorite DegrePriorite
+}
+/**
+ * Fixe entity.
+ * @author Sanda
+ * C'est l'ensemble de Fixe dont dispose le contribuable
+ *  relationship
+ *  	- ManyToOne avec Contact
+ */
+entity Fixe {
+	numFixe String
+	priorite DegrePriorite
+}
+/**
+ * Gsm entity.
+ * @author Sanda
+ * C'est l'ensemble de Gsm dont dispose le contribuable
+ *  relationship
+ *  	- ManyToOne avec Contact
+ */
+entity Gsm {
+	numGsm String
+	priorite DegrePriorite
+}
+enum DegrePriorite {
+	PRINCIPAL, SECONDAIRE, TERTIAIRE
+}
+/**
+ * Fax entity.
+ * @author Sanda
+ * C'est l'ensemble de Fax dont dispose le contribuable
+ *  relationship
+ *  	- ManyToOne avec Contact
+ */
+entity Fax {
+	numFax String
+	priorite DegrePriorite
+}
+/**
+ * ReseauxSociaux entity.
+ * @author Sanda
+ * C'est l'ensemble de ReseauxSociaux dont dispose le contribuable
+ *  relationship
+ *  	- ManyToOne avec Contact
+ */
+entity ReseauxSociaux {
+	nomReseau String
+	priorite DegrePriorite
+}
+/**
+ * SiteWeb entity.
+ * @author Sanda
+ * C'est l'ensemble de SiteWeb dont dispose le contribuable
+ *  relationship
+ *  	- ManyToOne avec Contribuable
+ */
+entity SiteWeb {
+	nomSiteWeb String
+	priorite DegrePriorite
+}
+/**
+ * Contact entity.
+ * @author Sanda
+ * C'est l'ensemble de Contact dont dispose le contribuable
+ *  relationship
+ *  	- OneToMany avec Blog
+ *  	- OneToMany avec Fixe
+ *  	- OneToMany avec Fax
+ *  	- OneToMany avec SiteWeb
+ *  	- OneToMany avec Gsm
+ *  	- OneToMany avec Email
+ *  	- OneToMany avec ReseauxSociaux
+ */
+entity Contact {
+	refContact String
+}
+relationship OneToMany {
+	Contact to Blog
+}
+relationship OneToMany {
+	Contact to BoitePostale
+}
+relationship OneToMany {
+	Contact to Email
+}
+relationship OneToMany {
+	Contact to Fixe
+}
+relationship OneToMany {
+	Contact to Gsm
+}
+relationship OneToMany {
+	Contact to Fax
+}
+relationship OneToMany {
+	Contact to ReseauxSociaux
+}
+relationship OneToMany {
+	Contact to SiteWeb
+}
+relationship OneToOne {
+	User to Contact
+}
+// Set pagination options
+paginate Blog, BoitePostale,Email, Fixe, Gsm, Fax, ReseauxSociaux, SiteWeb, Contact with infinite-scroll
+// Use Data Transfert Objects (DTO)
+dto Blog, BoitePostale, Email, Fixe, Gsm, Fax, ReseauxSociaux, SiteWeb with mapstruct
+// Set service options to all except few
+service all with serviceImpl
+microservice Contact with contact
+// Set an angular suffix
+// angularSuffix * with mySuffix
